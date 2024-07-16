@@ -16,7 +16,22 @@ def copy_files_recursively(src_dir, dst_dir):
                 ext_dir = os.path.join(dst_dir, file_ext)
                 if not os.path.exists(ext_dir):
                     os.makedirs(ext_dir)  # Створюємо директорію для розширення файлу, якщо вона не існує
-                shutil.copy2(src_path, os.path.join(ext_dir, item))  # Копіюємо файл
+                
+                dst_path = os.path.join(ext_dir, item)
+                
+                # Якщо файл з таким ім'ям вже існує, створюємо нове ім'я
+                if os.path.exists(dst_path):
+                    base_name, extension = os.path.splitext(item)
+                    counter = 1
+                    new_name = f"{base_name}_{counter}{extension}"
+                    new_dst_path = os.path.join(ext_dir, new_name)
+                    while os.path.exists(new_dst_path):
+                        counter += 1
+                        new_name = f"{base_name}_{counter}{extension}"
+                        new_dst_path = os.path.join(ext_dir, new_name)
+                    dst_path = new_dst_path
+                
+                shutil.copy2(src_path, dst_path)  # Копіюємо файл
     except Exception as e:
         print(f"Error occurred: {e}")
 
@@ -41,3 +56,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

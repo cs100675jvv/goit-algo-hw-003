@@ -20,7 +20,7 @@ def draw_snowflake(length, depth):
 
 def main():
     depth = int(input("Enter the recursion depth: "))
-    length = 300  # Довжина однієї сторони початкового трикутника
+    length = 500  # Довжина однієї сторони початкового трикутника
 
     turtle.speed(0)  # Максимальна швидкість малювання
     turtle.penup()
